@@ -32,20 +32,20 @@ sudo chmod a+x /usr/bin/elkctl
 ```shell
 sudo elkctl status
 ```
-![status2.png](https://github.com/BasiliusCarver/elkctl/master/images/status2.png)
+![status2.png](https://github.com/BasiliusCarver/elkctl/tree/master/images/status2.png)
 
 ```shell
 sudo elkctl start
 ```
-![start.png](https://github.com/BasiliusCarver/elkctl/master/images/start.png)
+![start.png](https://github.com/BasiliusCarver/elkctl/tree/master/images/start.png)
 
 ```shell
 sudo elkctl status
 ```
-![status.png](https://github.com/BasiliusCarver/elkctl/master/images/status.png)
+![status.png](https://github.com/BasiliusCarver/elkctl/tree/master/images/status.png)
 
 ```shell
 sudo elkctl stop
 ```
-![stop.png](https://github.com/BasiliusCarver/elkctl/master/images/stop.png)
+![stop.png](https://github.com/BasiliusCarver/elkctl/tree/master/images/stop.png)
 

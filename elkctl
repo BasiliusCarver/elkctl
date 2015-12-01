@@ -1,0 +1,171 @@
+#!/bin/bash
+#
+# A simple apachectl style ctl script for the Elasticsearch, Logstash and Kibana stack.
+#
+# @author Shaun Lawrie
+#
+
+# ==============================================
+# Bail out if not root
+# ==============================================
+
+if [ "$(id -u)" != "0" ]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+# ==============================================
+# Color definitions
+# ==============================================
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BOLD='\033[1m'
+CLEAR='\033[0m'
+
+# ==============================================
+# Define functions
+# ==============================================
+
+# Print error reason and exit
+quitWithReason ()
+{
+    echo "EXIT: $1"
+    exit
+}
+
+# Strip the star from the start of statuses coming from status_of_proc calls etc.
+stripStar ()
+{
+    if [[ "$1" == " * "* ]]
+    then
+        out="${1:3}"
+    else
+        out="$1"
+    fi
+    echo "$out"
+}
+
+# Helper function for printing service output
+printStar ()
+{
+    out=$(stripStar "$1")
+    # If not running then print with red start at start, else prefix with green star
+    if [[ "$out" == *"not running"* ]]
+    then
+        redStatus "$out"
+    else
+        greenStatus "$out"
+    fi
+}
+
+# Prefix output with a green star
+greenStatus ()
+{
+    echo -e "${GREEN}  * ${CLEAR}$1"
+}
+
+# Prefix output with a red star
+redStatus ()
+{
+    echo -e "${RED}  * ${CLEAR}$1"
+}
+
+# Start the ElasticSearch, Logstash and Kibana stack
+startELK ()
+{
+    echo -e "${BOLD}Starting ELK...${CLEAR}"
+    printStar "$(service elasticsearch start)"
+    sleep 10
+    printStar "$(service logstash start)"
+    sleep 10
+    printStar "$(service kibana start)"
+    exit
+}
+
+# Stop and start the ELK stack
+restartELK ()
+{
+    echo -e "${BOLD}Restarting ELK...${CLEAR}"
+    stopELK
+    startELK
+    exit
+}
+
+# Stop the ELK stack
+stopELK ()
+{
+    echo -e "${BOLD}Stopping ELK...${CLEAR}"
+    printStar "$(service kibana stop)"
+    printStar "$(service logstash stop)"
+    printStar "$(service elasticsearch stop)"
+    exit
+}
+
+# Get version details and status for each component
+statusELK ()
+{
+    echo -e "${BOLD}Checking ELK status...${CLEAR}"
+    # Store statuses in variables for compare
+    elasticStatus="$(service elasticsearch status)"
+    logstashStatus="$(service logstash status)"
+    kibanaStatus="$(service kibana status)"
+
+    # Output
+    echo " ELASTICSEARCH: $(/usr/share/elasticsearch/bin/elasticsearch --version)"
+    printStar "${elasticStatus}"
+    echo " LOGSTASH: $(/opt/logstash/bin/logstash --version)"
+    printStar "${logstashStatus}"
+    echo " KIBANA: $(/opt/kibana/bin/kibana --version)"
+    printStar "${kibanaStatus}"
+    exit
+}
+
+# Print the help dialog
+helpMe ()
+{
+    echo -e "${BOLD}Help${CLEAR}"
+    echo "This is a basic script for starting, stopping and restarting the ELK stack in the correct order."
+    echo " "
+    echo "      start: Start the stack"
+    echo "       stop: Stop the stack"
+    echo "    restart: Restart the stack"
+    echo "       help: Show this help"
+    echo " "
+    exit
+}
+
+# ==============================================
+# Main
+# ==============================================
+
+# Process commandline flags
+while [[ $# > 0 ]]
+do
+key="$1"
+
+case $key in
+    start)
+        startELK
+    ;;
+    restart)
+        restartELK
+    ;;
+    stop)
+        stopELK
+    ;;
+    status)
+        statusELK
+    ;;
+    -h|--help|\?)
+        helpMe
+    ;;
+    *)
+        quitWithReason "Unknown flag '$key'"
+    ;;
+esac
+shift # past argument or value
+done
+
+# Fall through to help
+helpMe

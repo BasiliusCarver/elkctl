@@ -16,7 +16,7 @@ I used [this digital ocean guide](https://www.digitalocean.com/community/tutoria
 
 ## Install
 This is just a shell script so you can download it and put it anywhere in your PATH and give it executable permissions to install.
-Example install:
+###Example install:
 ```shell
 cd ~
 mkdir src
@@ -28,7 +28,7 @@ sudo cp elkctl.sh /usr/bin/
 sudo chmod a+x /usr/bin/elkctl.sh
 ```
 
-First run:
+###First run:
 ```shell
 sudo elkctl status
 ```

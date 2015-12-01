@@ -17,14 +17,18 @@ I used [this digital ocean guide](https://www.digitalocean.com/community/tutoria
 ## Install
 This is just a shell script so you can download it and put it anywhere in your PATH and give it executable permissions to install.
 Example install:
-1. `cd ~`
-2. `mkdir src`
-3. `cd src`
-4. `wget https://github.com/BasiliusCarver/elkctl/archive/master.tar.gz`
-5. `tar -xvf master.tar.gz`
-6. `cd elkctl-master/`
-7. `sudo cp elkctl.sh /usr/bin/`
-8. `sudo chmod a+x /usr/bin/elkctl.sh`
+```shell
+cd ~
+mkdir src
+cd src
+wget https://github.com/BasiliusCarver/elkctl/archive/master.tar.gz
+tar -xvf master.tar.gz
+cd elkctl-master/
+sudo cp elkctl.sh /usr/bin/
+sudo chmod a+x /usr/bin/elkctl.sh
+```
 
 First run:
-1. `sudo elkctl status`
+```shell
+sudo elkctl status
+```

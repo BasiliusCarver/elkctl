@@ -15,6 +15,14 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # ==============================================
+# ELK bin locations
+# ==============================================
+
+elasticBin="/usr/share/elasticsearch/bin/elasticsearch"
+logstashBin="/opt/logstash/bin/logstash"
+kibanaBin="/opt/kibana/bin/kibana"
+
+# ==============================================
 # Color definitions
 # ==============================================
 
@@ -112,11 +120,11 @@ statusELK ()
     kibanaStatus="$(service kibana status)"
 
     # Output
-    echo " ELASTICSEARCH: $(/usr/share/elasticsearch/bin/elasticsearch --version)"
+    echo " ELASTICSEARCH: $($elasticBin --version)"
     printStar "${elasticStatus}"
-    echo " LOGSTASH: $(/opt/logstash/bin/logstash --version)"
+    echo " LOGSTASH: $($logstashBin --version)"
     printStar "${logstashStatus}"
-    echo " KIBANA: $(/opt/kibana/bin/kibana --version)"
+    echo " KIBANA: $($kibanaBin --version)"
     printStar "${kibanaStatus}"
     exit
 }

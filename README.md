@@ -16,6 +16,7 @@ I used [this digital ocean guide](https://www.digitalocean.com/community/tutoria
 
 ## Install
 This is just a shell script so you can download it and put it anywhere in your PATH and give it executable permissions to install.
+You may need to edit the script and update the "ELK bin locations" section to point it to your ELK binaries, this is used to get the version information.
 ###Example install:
 ```shell
 cd ~

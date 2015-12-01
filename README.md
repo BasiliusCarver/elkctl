@@ -1,5 +1,6 @@
 # elkctl
-A simple "elkctl" (like apachectl) script for the Elasticsearch, Logstash and Kibana stack.
+A simple "elkctl" (like apachectl) script for a single instance Elasticsearch, Logstash and Kibana stack.
+This is useful if you have the whole lot running on one box for testing.
 
 ## My current versions
 I'm currently using this with:

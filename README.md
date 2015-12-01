@@ -24,8 +24,8 @@ cd src
 wget https://github.com/BasiliusCarver/elkctl/archive/master.tar.gz
 tar -xvf master.tar.gz
 cd elkctl-master/
-sudo cp elkctl.sh /usr/bin/
-sudo chmod a+x /usr/bin/elkctl.sh
+sudo cp elkctl /usr/bin/
+sudo chmod a+x /usr/bin/elkctl
 ```
 
 ###First run:
